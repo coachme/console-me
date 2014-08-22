@@ -22,13 +22,17 @@ function getColorName(methodName) {
   var baseConsoleMethod = console[method];
   var slice = Array.prototype.slice;
   var color = getColorName(method);
+  var messageType = method.toUpperCase();
   var output = method === 'warn' || method === 'error' ? 'stderr' : 'stdout';
 
   console[method] = function() {
     var date = (new Date()).toISOString();
     var args = slice.call(arguments);
 
-    process[output].write('[' + date + '] ' + addColor(method.toUpperCase(), color) + ' ');
+    if (process[output].isTTY)
+      messageType = addColor(messageType, color);
+
+    process[output].write('[' + date + '] ' + messageType + ' ');
 
     return baseConsoleMethod.apply(console, args);
   }
