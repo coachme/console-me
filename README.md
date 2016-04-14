@@ -1,4 +1,4 @@
-Time-Log
+Console-Me
 ============
 Patches Node.js console log methods to add a UTC timestamp to each message
 
@@ -13,7 +13,7 @@ have any options, and that's on purpose.
 Just require it somewhere in your project before needing the timestamps:
 
 ```js
-require('time-log')
+require('console-me')
 
 console.log('something')
 // Output: [2016-04-14T14:38:45.489Z] LOG something
