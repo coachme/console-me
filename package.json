@@ -1,24 +1,16 @@
 {
-  "name": "console-time",
+  "name": "time-log",
   "version": "0.1.0",
-  "description": "Patch Node.js console methods to add a UTC timestamp to each message",
+  "description": "Patches Node.js console log methods to add a UTC timestamp to each message",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/coachme/console-time.git"
+    "url": "git://github.com/coachme/time-log.git"
   },
-  "keywords": [
-    "console",
-    "timestamp",
-    "date",
-    "log"
-  ],
+  "keywords": ["console", "timestamp", "date", "log"],
   "author": "Ricardo Graça <ricardo@devius.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/coachme/console-time/issues"
+    "url": "https://github.com/coachme/time-log/issues"
   }
 }
