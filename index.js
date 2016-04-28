@@ -1,29 +1,29 @@
 var isPatched = false;
 var slice = Array.prototype.slice;
 
-if (isPatched) return console.log('already patched');
+if (isPatched) return;
 
-function addColor(string, name) {
+function addColor(string) {
+  var colorName = getColorName(string);
   var colors = {
     green: ['\x1B[32m', '\x1B[39m'],
     red: ['\x1B[1m\x1B[31m', '\x1B[39m\x1B[22m'],
     yellow: ['\x1B[33m', '\x1B[39m']
   }
 
-  return colors[name][0] + string + colors[name][1];
+  return colors[colorName][0] + string + colors[colorName][1];
 }
 
 function getColorName(methodName) {
   switch (methodName) {
-    case 'error': return 'red';
-    case 'warn': return 'yellow';
+    case 'ERROR': return 'red';
+    case 'WARN': return 'yellow';
     default: return 'green';
   }
 }
 
 ['log', 'info', 'warn', 'error', 'dir', 'assert'].forEach(function(method) {
   var baseConsoleMethod = console[method];
-  var color = getColorName(method);
   var messageType = method.toUpperCase();
   var output = method === 'warn' || method === 'error' ? 'stderr' : 'stdout';
 
@@ -31,8 +31,7 @@ function getColorName(methodName) {
     var date = (new Date()).toISOString();
     var args = slice.call(arguments);
 
-    if (process[output].isTTY)
-      messageType = addColor(messageType, color);
+    if (process[output].isTTY) messageType = addColor(messageType);
 
     process[output].write('[' + date + '] ' + messageType + ' ');
 
