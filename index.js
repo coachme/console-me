@@ -27,13 +27,14 @@ function getColorName(methodName) {
   var messageType = method.toUpperCase();
   var output = method === 'warn' || method === 'error' ? 'stderr' : 'stdout';
 
+  if (process[output].isTTY) messageType = addColor(messageType);
+
   console[method] = function() {
     var date = (new Date()).toISOString();
     var args = slice.call(arguments);
+    var dateMessage = '[' + date + '] ' + messageType + ' ';
 
-    if (process[output].isTTY) messageType = addColor(messageType);
-
-    process[output].write('[' + date + '] ' + messageType + ' ');
+    args[0] = typeof args[0] === 'string' ? dateMessage + args[0] : dateMessage;
 
     return baseConsoleMethod.apply(console, args);
   }
