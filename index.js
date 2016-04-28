@@ -1,3 +1,4 @@
+var Cache = require('./cache')
 var isPatched = false
 var slice = Array.prototype.slice
 
@@ -24,6 +25,7 @@ function getColorName(methodName) {
 
 ['log', 'info', 'warn', 'error', 'dir', 'assert'].forEach(function(method) {
   var baseConsoleMethod = console[method]
+  var cache = new Cache(baseConsoleMethod)
   var messageType = method.toUpperCase()
   var output = method === 'warn' || method === 'error' ? 'stderr' : 'stdout'
 
@@ -36,7 +38,7 @@ function getColorName(methodName) {
 
     args[0] = typeof args[0] === 'string' ? dateMessage + args[0] : dateMessage
 
-    return baseConsoleMethod.apply(console, args)
+    process.env.NODE_ENV === 'production' ? cache.store(args) : baseConsoleMethod.apply(console, args)
   }
 })
 
