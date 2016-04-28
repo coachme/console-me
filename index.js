@@ -1,4 +1,6 @@
-if (console._isPatched) return;
+var isPatched = false;
+
+if (isPatched) return console.log('already patched');
 
 function addColor(string, name) {
   var colors = {
@@ -38,4 +40,4 @@ function getColorName(methodName) {
   }
 });
 
-console._isPatched = true;
+isPatched = true;
