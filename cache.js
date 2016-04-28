@@ -1,11 +1,10 @@
 var util = require('util')
-var Cache = module.exports = function Cache(consoleMethod, name) {
+var Cache = module.exports = function Cache(consoleMethod) {
   this.cache = {
     bufferedMessages: [],
     size: 0
   }
   this.consoleMethod = consoleMethod
-  this.name = name
 
   process.on('exit', this.flush.bind(this))
 }
