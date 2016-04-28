@@ -1,4 +1,5 @@
 var isPatched = false;
+var slice = Array.prototype.slice;
 
 if (isPatched) return console.log('already patched');
 
@@ -22,7 +23,6 @@ function getColorName(methodName) {
 
 ['log', 'info', 'warn', 'error', 'dir', 'assert'].forEach(function(method) {
   var baseConsoleMethod = console[method];
-  var slice = Array.prototype.slice;
   var color = getColorName(method);
   var messageType = method.toUpperCase();
   var output = method === 'warn' || method === 'error' ? 'stderr' : 'stdout';
