@@ -1,6 +1,7 @@
 var Cache = require('./cache')
 var isPatched = false
 var slice = Array.prototype.slice
+var util = require('util')
 
 if (isPatched) return
 
@@ -36,7 +37,10 @@ function getColorName(methodName) {
     var args = slice.call(arguments)
     var dateMessage = '[' + date + '] ' + messageType + ' '
 
-    args[0] = typeof args[0] === 'string' ? dateMessage + args[0] : dateMessage
+    if (args.length > 0)
+      args[0] = dateMessage + (typeof args[0] !== 'string' ? util.format(args[0]) : args[0])
+    else
+      args[0] = dateMessage
 
     process.env.NODE_ENV === 'production' ? cache.store(args) : baseConsoleMethod.apply(console, args)
   }
