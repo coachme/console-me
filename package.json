@@ -1,6 +1,6 @@
 {
   "name": "console-me",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Patches Node.js console log methods to add a UTC timestamp to each message",
   "main": "index.js",
   "repository": {
